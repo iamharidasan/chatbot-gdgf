@@ -3,7 +3,7 @@ import "./Bootstrap.css"
 import "./App.css"
 
 function App() {
-  return <div className="App"></div>
+  return <Fragment className="App"></Fragment>
 }
 
 export default App
