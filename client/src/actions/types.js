@@ -1,0 +1,5 @@
+export const CHAT_INIT = "CHAT_INIT"
+export const CHAT_OLD = "CHAT_OLD"
+export const CHAT_ADD = "CHAT_ADD"
+export const CHAT_ERROR = "CHAT_ERROR"
+export const SHOW_TYPING = "SHOW_TYPING"
