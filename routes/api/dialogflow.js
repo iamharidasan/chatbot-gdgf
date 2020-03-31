@@ -57,7 +57,7 @@ router.post(
       }
     } catch (err) {
       console.log(err.message)
-      res.status(500).send("Server Error")
+      res.status(500).json(err.message)
     }
     // Send request and log result
   }
@@ -116,7 +116,7 @@ router.post(
       }
     } catch (err) {
       console.log(err.message)
-      res.status(500).send("Server Error")
+      res.status(500).json(err.message)
     }
     // Send request and log result
   }
