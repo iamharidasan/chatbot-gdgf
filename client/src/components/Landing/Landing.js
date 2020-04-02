@@ -3,7 +3,7 @@ import PropTypes from "prop-types"
 import { initChat, oldChat } from "../../actions/chats"
 import { connect } from "react-redux"
 import Header from "../Common/Header"
-import Footer from "../Common/Footer"
+import Spinner from "../Common/Spinner"
 
 const Landing = ({ initChat, messages, typing, oldChat }) => {
   useEffect(() => {
@@ -16,8 +16,7 @@ const Landing = ({ initChat, messages, typing, oldChat }) => {
   }, [initChat, oldChat])
   return (
     <Fragment>
-      {messages && <Header data={messages} typing={typing} />}
-      <Footer />
+      {messages ? <Header data={messages} typing={typing} /> : <Spinner />}
     </Fragment>
   )
 }
