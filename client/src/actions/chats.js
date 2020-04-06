@@ -1,4 +1,11 @@
-import { CHAT_INIT, CHAT_ADD, CHAT_ERROR, CHAT_OLD, SHOW_TYPING } from "./types"
+import {
+  CHAT_INIT,
+  CHAT_ADD,
+  CHAT_ERROR,
+  CHAT_OLD,
+  SHOW_TYPING,
+  CHAT_ADD_USER
+} from "./types"
 import axios from "axios"
 import { v4 } from "uuid"
 
@@ -34,10 +41,14 @@ export const initChat = () => async dispatch => {
   }
 }
 
-export const getChat = message => async dispatch => {
+export const getChat = (message, callback) => async dispatch => {
   try {
     dispatch({
       type: SHOW_TYPING
+    })
+    dispatch({
+      type: CHAT_ADD_USER,
+      payload: message
     })
     const session = localStorage.getItem("session")
     const config = {
@@ -55,6 +66,7 @@ export const getChat = message => async dispatch => {
       type: CHAT_ADD,
       payload: res.data
     })
+    if (typeof callback == "function" && res) await callback()
   } catch (err) {
     dispatch({
       type: CHAT_ERROR

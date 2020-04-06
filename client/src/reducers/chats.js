@@ -3,7 +3,8 @@ import {
   CHAT_INIT,
   CHAT_ERROR,
   CHAT_OLD,
-  SHOW_TYPING
+  SHOW_TYPING,
+  CHAT_ADD_USER
 } from "../actions/types"
 
 const initialState = {
@@ -31,13 +32,18 @@ export default function(state = initialState, action) {
 
     case CHAT_ADD:
       const oldChats = JSON.parse(localStorage.getItem("messages"))
-      const newChat = { message: payload.queryText, who: 1 }
-      oldChats.push(newChat)
       payload.fulfillmentMessages.map(message =>
         oldChats.push({ message: message.text.text[0], who: 0 })
       )
       localStorage.setItem("messages", JSON.stringify(oldChats))
       return { ...state, chat: oldChats, typing: false }
+
+    case CHAT_ADD_USER:
+      const oldChatsUser = JSON.parse(localStorage.getItem("messages"))
+      const userChat = { message: payload, who: 1 }
+      oldChatsUser.push(userChat)
+      localStorage.setItem("messages", JSON.stringify(oldChatsUser))
+      return { ...state, chat: oldChatsUser, typing: false }
 
     case CHAT_ERROR:
       return { ...state, chat: null, typing: false }

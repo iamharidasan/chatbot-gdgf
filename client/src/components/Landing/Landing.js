@@ -16,7 +16,20 @@ const Landing = ({ initChat, messages, typing, oldChat }) => {
   }, [initChat, oldChat])
   return (
     <Fragment>
-      {messages ? <Header data={messages} typing={typing} /> : <Spinner />}
+      <div className="container">
+        <div className="row">
+          <div
+            className="col-xs-12 col-lg-6 col-lg-offset-3"
+            style={{ paddingTop: "150px" }}
+          >
+            {messages ? (
+              <Header data={messages} typing={typing} />
+            ) : (
+              <Spinner />
+            )}
+          </div>
+        </div>
+      </div>
     </Fragment>
   )
 }
