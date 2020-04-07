@@ -7,14 +7,13 @@ import { useEffect } from "react"
 
 const scrollToRef = () => {
   document.getElementById("LastID").scrollIntoView({ behavior: "smooth" })
-  //alert("Called")
 }
 
-const Header = ({ data, typing, getChat }) => {
+const Header = ({ data, typing, getChat, options }) => {
   useEffect(() => {
     scrollToRef()
   }, [])
-  const entered = e => {
+  const entered = (e, callback) => {
     if (e.key === "Enter") {
       getChat(e.target.value, scrollToRef)
       e.target.value = ""
@@ -49,16 +48,23 @@ const Header = ({ data, typing, getChat }) => {
           <li id="LastID"></li>
         </ul>
       </div>
-      <div className="w-100">
-        <input
-          type="text"
-          name="chat"
-          id="chat"
-          placeholder="Type and Press Enter"
-          onKeyPress={e => entered(e)}
-          className="form-control"
-        />
-      </div>
+      {options ? (
+        <div className="w-100 options">
+          <button onClick={(e) => getChat("Food", scrollToRef)}>Food</button>
+          <button>Fashion</button>
+        </div>
+      ) : (
+        <div className="w-100">
+          <input
+            type="text"
+            name="chat"
+            id="chat"
+            placeholder="Type and Press Enter"
+            onKeyPress={(e) => entered(e, scrollToRef)}
+            className="form-control"
+          />
+        </div>
+      )}
     </Fragment>
   )
 }
@@ -66,7 +72,12 @@ const Header = ({ data, typing, getChat }) => {
 Header.propTypes = {
   getChat: PropTypes.func.isRequired,
   typing: PropTypes.bool.isRequired,
-  data: PropTypes.array.isRequired
+  data: PropTypes.array.isRequired,
+  options: PropTypes.bool.isRequired,
 }
 
-export default connect(null, { getChat })(Header)
+const mapStateToProps = (state) => ({
+  options: state.chats.options,
+})
+
+export default connect(mapStateToProps, { getChat })(Header)

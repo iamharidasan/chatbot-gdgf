@@ -4,16 +4,20 @@ const UserSchema = new mongoose.Schema({
   sessionName: {
     type: String,
     required: true,
-    unique: true
+    unique: true,
   },
   chatFields: {
-    type: String,
-    required: true
+    name: { type: String },
+    email: { type: String },
+    category: { type: String },
+    mobile: { type: String },
+    secondaryCategory: { type: String },
+    tiktokusername: { type: String },
   },
   date: {
     type: Date,
-    default: Date.Now
-  }
+    default: Date.Now,
+  },
 })
 
 module.exports = User = mongoose.model("user", UserSchema)

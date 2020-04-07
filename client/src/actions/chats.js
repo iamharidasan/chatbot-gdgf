@@ -11,6 +11,9 @@ import { v4 } from "uuid"
 
 export const initChat = () => async (dispatch) => {
   try {
+    dispatch({
+      type: SHOW_TYPING,
+    })
     let session = localStorage.getItem("session")
     if (session === null) {
       session = v4()
@@ -24,20 +27,27 @@ export const initChat = () => async (dispatch) => {
         reqText: "Hi",
         sessionId: session,
       }
-      await axios.post("/api/dialogflow", chatData, config)
+      const res = await axios.post("/api/dialogflow", chatData, config)
+      const messages = []
+      res.data.map((message) =>
+        messages.push({ message: message.text.text[0], who: 0 })
+      )
       const chatDataOk = {
         projectId: "influencertiktok-llneow",
         reqText: "ok",
         sessionId: session,
       }
-      const res = await axios.post("/api/dialogflow", chatDataOk, config)
-      const response = {
-        messages: res.data,
+      const resok = await axios.post("/api/dialogflow", chatDataOk, config)
+      resok.data.map((message) =>
+        messages.push({ message: message.text.text[0], who: 0 })
+      )
+      const responseok = {
+        messages: messages,
         session: session,
       }
       dispatch({
         type: CHAT_INIT,
-        payload: response,
+        payload: responseok,
       })
     }
   } catch (err) {
@@ -68,6 +78,20 @@ export const getChat = (message, callback) => async (dispatch) => {
       sessionId: session,
     }
     const res = await axios.post("/api/dialogflow/fullset", chatData, config)
+    const dbFields = {
+      name: res.data.parameters.fields.name.stringValue,
+      email: res.data.parameters.fields.email.stringValue,
+      category: res.data.parameters.fields.category.stringValue,
+      mobile: res.data.parameters.fields.mobile.stringValue,
+      secondaryCategory:
+        res.data.parameters.fields.secondaryCategory.stringValue,
+      tiktokusername: res.data.parameters.fields.tiktokusername.stringValue,
+    }
+    const dbData = {
+      sessionId: session,
+      fields: dbFields,
+    }
+    await axios.post("/api/db", dbData, config)
     dispatch({
       type: CHAT_ADD,
       payload: res.data,
