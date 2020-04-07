@@ -6,7 +6,10 @@ import { connect } from "react-redux"
 import { useEffect } from "react"
 
 const scrollToRef = () => {
-  document.getElementById("LastID").scrollIntoView({ behavior: "smooth" })
+  setInterval(
+    document.getElementById("LastID").scrollIntoView({ behavior: "smooth" }),
+    500
+  )
 }
 
 const Header = ({ data, typing, getChat, options }) => {
@@ -50,8 +53,38 @@ const Header = ({ data, typing, getChat, options }) => {
       </div>
       {options ? (
         <div className="w-100 options">
+          <button onClick={(e) => getChat("Fashion", scrollToRef)}>
+            Fashion
+          </button>
+          <button onClick={(e) => getChat("Lifestyle", scrollToRef)}>
+            Lifestyle
+          </button>
+          <button onClick={(e) => getChat("Travel", scrollToRef)}>
+            Travel
+          </button>
           <button onClick={(e) => getChat("Food", scrollToRef)}>Food</button>
-          <button>Fashion</button>
+          <button onClick={(e) => getChat("Health and Wellness", scrollToRef)}>
+            Health and Wellness
+          </button>
+          <button onClick={(e) => getChat("Fitness", scrollToRef)}>
+            Fitness
+          </button>
+          <button onClick={(e) => getChat("Comedy", scrollToRef)}>
+            Comedy
+          </button>
+          <button onClick={(e) => getChat("Tech", scrollToRef)}>Tech</button>
+          <button onClick={(e) => getChat("Parenting", scrollToRef)}>
+            Parenting
+          </button>
+          <button onClick={(e) => getChat("Education", scrollToRef)}>
+            Education
+          </button>
+          <button onClick={(e) => getChat("Gaming", scrollToRef)}>
+            Gaming
+          </button>
+          <button onClick={(e) => getChat("Automobile", scrollToRef)}>
+            Automobile
+          </button>
         </div>
       ) : (
         <div className="w-100">
