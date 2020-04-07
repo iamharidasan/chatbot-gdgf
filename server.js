@@ -1,11 +1,15 @@
 const express = require("express")
-const path = require("path")
+
+const connectDB = require("./config/db")
 
 const app = express()
+
+connectDB()
 
 app.use(express.json({ extended: false }))
 
 app.use("/api/dialogflow", require("./routes/api/dialogflow"))
+app.use("/api/db", require("./routes/api/db"))
 
 // Serve static assets in production
 if (process.env.NODE_ENV === "production") {
