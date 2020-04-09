@@ -85,6 +85,7 @@ const Header = ({ data, typing, getChat, options }) => {
           <button onClick={(e) => getChat("Automobile", scrollToRef)}>
             Automobile
           </button>
+          <button onClick={(e) => getChat("Other", scrollToRef)}>Other</button>
         </div>
       ) : (
         <div className="w-100">

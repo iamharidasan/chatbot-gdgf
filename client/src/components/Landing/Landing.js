@@ -38,12 +38,12 @@ Landing.propTypes = {
   initChat: PropTypes.func.isRequired,
   messages: PropTypes.array,
   typing: PropTypes.bool.isRequired,
-  oldChat: PropTypes.func.isRequired
+  oldChat: PropTypes.func.isRequired,
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   messages: state.chats.chat,
-  typing: state.chats.typing
+  typing: state.chats.typing,
 })
 
 export default connect(mapStateToProps, { initChat, oldChat })(Landing)
