@@ -16,7 +16,7 @@ const Header = ({ data, typing, getChat, options }) => {
     enabled: false,
   })
   const entered = (e) => {
-    if (e.target.value != null) {
+    if (e.target.value !== "") {
       console.log("Enabled")
       setEnableBtn({
         enabled: true,
@@ -43,6 +43,12 @@ const Header = ({ data, typing, getChat, options }) => {
     scrollToRef()
   }, [data])
 
+  let disabled = "true"
+  if (enabled) {
+    disabled = ""
+  } else {
+    disabled = "true"
+  }
   return (
     <Fragment>
       <div className="messages" style={{ height: "calc(100vh - 250px)" }}>
@@ -113,10 +119,22 @@ const Header = ({ data, typing, getChat, options }) => {
             name="chat"
             id="chat"
             placeholder="Type and Press Enter"
-            onKeyPress={(e) => entered(e)}
+            onKeyUp={(e) => entered(e)}
             className="form-control"
+            style={{ display: "inline-block", width: "calc(100% - 30px)" }}
           />
-          {enabled && <button onClick={(e) => btnClicked()}></button>}
+          <button
+            onClick={(e) => btnClicked()}
+            style={{
+              width: "30px",
+              border: "none",
+              backgroundColor: "white",
+              padding: "6px 0",
+            }}
+            disabled={disabled}
+          >
+            <i class="fas fa-paper-plane"></i>
+          </button>
         </div>
       )}
     </Fragment>
