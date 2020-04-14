@@ -1,28 +1,47 @@
-import React, { Fragment } from "react"
+import React, { Fragment, useEffect, useState } from "react"
 import influncerLogo from "./influencer.png"
 import { getChat } from "../../actions/chats"
 import PropTypes from "prop-types"
 import { connect } from "react-redux"
-import { useEffect } from "react"
 
 const scrollToRef = () => {
-  setInterval(
-    document.getElementById("LastID").scrollIntoView({ behavior: "smooth" }),
-    500
-  )
+  document.getElementById("LastID").scrollIntoView({ behavior: "smooth" })
 }
 
 const Header = ({ data, typing, getChat, options }) => {
   useEffect(() => {
     scrollToRef()
   }, [])
-  const entered = (e, callback) => {
+  const [enableBtn, setEnableBtn] = useState({
+    enabled: false,
+  })
+  const entered = (e) => {
+    if (e.target.value != null) {
+      console.log("Enabled")
+      setEnableBtn({
+        enabled: true,
+      })
+    } else {
+      console.log("Disabled")
+      setEnableBtn({
+        enabled: false,
+      })
+    }
     if (e.key === "Enter") {
       getChat(e.target.value, scrollToRef)
       e.target.value = ""
       //scrollToRef()
     }
   }
+
+  const { enabled } = enableBtn
+
+  const btnClicked = () => {
+    getChat(document.getElementById("chat").value, scrollToRef)
+  }
+  useEffect(() => {
+    scrollToRef()
+  }, [data])
 
   return (
     <Fragment>
@@ -94,9 +113,10 @@ const Header = ({ data, typing, getChat, options }) => {
             name="chat"
             id="chat"
             placeholder="Type and Press Enter"
-            onKeyPress={(e) => entered(e, scrollToRef)}
+            onKeyPress={(e) => entered(e)}
             className="form-control"
           />
+          {enabled && <button onClick={(e) => btnClicked()}></button>}
         </div>
       )}
     </Fragment>
