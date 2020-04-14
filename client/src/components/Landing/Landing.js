@@ -22,7 +22,7 @@ const Landing = ({ initChat, messages, typing, oldChat }) => {
             className="col-xs-12 col-lg-6 col-lg-offset-3"
             style={{ paddingTop: "130px" }}
           >
-            <h1 className="mt-0 mb-1">Become an Influencestar</h1>
+            <h1 className="mt-0 mb-1 text-center">Become an Influencestar</h1>
             {messages ? (
               <Header data={messages} typing={typing} />
             ) : (
