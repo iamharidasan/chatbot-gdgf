@@ -10,6 +10,7 @@ app.use(express.json({ extended: false }))
 
 app.use("/api/dialogflow", require("./routes/api/dialogflow"))
 app.use("/api/db", require("./routes/api/db"))
+app.use("/api/auth", require("./routes/api/auth"))
 
 // Serve static assets in production
 if (process.env.NODE_ENV === "production") {

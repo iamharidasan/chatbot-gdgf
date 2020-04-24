@@ -43,4 +43,14 @@ router.post(
   }
 )
 
+router.get("/", async (req, res) => {
+  try {
+    const leads = await User.find()
+    res.json(leads)
+  } catch (err) {
+    console.log(err.message)
+    res.status(500).send("Server Error")
+  }
+})
+
 module.exports = router

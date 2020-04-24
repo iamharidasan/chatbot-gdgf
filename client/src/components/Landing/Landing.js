@@ -19,7 +19,7 @@ const Landing = ({ initChat, messages, typing, oldChat }) => {
       <div className="container">
         <div className="row">
           <div
-            className="col-xs-12 col-lg-6 col-lg-offset-3"
+            className="col-12 col-lg-6 offset-lg-3"
             style={{ paddingTop: "130px" }}
           >
             <h1 className="mt-0 mb-1 text-center">Become an Influencestar</h1>
